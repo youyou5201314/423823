@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .login-header {
+      width: 100%;
+      text-align: center;
+      height: 30px;
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    ul,
+    li,
+    ol,
+    dl,
+    dt,
+    dd,
+    div,
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .login {
+      width: 512px;
+      position: absolute;
+      border: #ebebeb solid 1px;
+      height: 280px;
+      left: 50%;
+      right: 50%;
+      background: #ffffff;
+      box-shadow: 0px 0px 20px #ddd;
+      z-index: 9999;
+      margin-left: -250px;
+      margin-top: 140px;
+      /*display: none;*/
+    }
+
+    .login-title {
+      width: 100%;
+      margin: 10px 0px 0px 0px;
+      text-align: center;
+      line-height: 40px;
+      height: 40px;
+      font-size: 18px;
+      position: relative;
+      cursor: move;
+      -moz-user-select: none;
+      /*火狐*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -ms-user-select: none;
+      /*IE10*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      user-select: none;
+    }
+
+    .login-input-content {
+      margin-top: 20px;
+    }
+
+    .login-button {
+      width: 50%;
+      margin: 30px auto 0px auto;
+      line-height: 40px;
+      font-size: 14px;
+      border: #ebebeb 1px solid;
+      text-align: center;
+    }
+
+    .login-bg {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      background: #000000;
+      filter: alpha(opacity=30);
+      -moz-opacity: 0.3;
+      -khtml-opacity: 0.3;
+      opacity: 0.3;
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000000;
+    }
+
+    .login-button a {
+      display: block;
+    }
+
+    .login-input input.list-input {
+      float: left;
+      line-height: 35px;
+      height: 35px;
+      width: 350px;
+      border: #ebebeb 1px solid;
+      text-indent: 5px;
+    }
+
+    .login-input {
+      overflow: hidden;
+      margin: 0px 0px 20px 0px;
+    }
+
+    .login-input label {
+      float: left;
+      width: 90px;
+      padding-right: 10px;
+      text-align: right;
+      line-height: 35px;
+      height: 35px;
+      font-size: 14px;
+    }
+
+    .login-title span {
+      position: absolute;
+      font-size: 12px;
+      right: -20px;
+      top: -30px;
+      background: #ffffff;
+      border: #ebebeb solid 1px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-header"><a id="link" href="javascript:void(0);">点击，弹出登录框</a></div>
+  <div id="login" class="login">
+    <div id="title" class="login-title">登录会员
+      <span><a id="closeBtn" href="javascript:void(0);" class="close-login">关闭</a></span></div>
+    <div class="login-input-content">
+      <div class="login-input">
+        <label>用户名：</label>
+        <input type="text" placeholder="请输入用户名" name="info[username]" id="username" class="list-input">
+      </div>
+      <div class="login-input">
+        <label>登录密码：</label>
+        <input type="password" placeholder="请输入登录密码" name="info[password]" id="password" class="list-input">
+      </div>
+    </div>
+    <div id="loginBtn" class="login-button"><a href="javascript:void(0);" id="login-button-submit">登录会员</a></div>
+  </div>
+  <div id="bg" class="login-bg"></div>
+
+</body>
+<script>
+  /*
+    效果：
+      鼠标按下，然后移动的函数，登录框可以随着鼠标的而移动而移动
+      鼠标松开，登录框就固定不动了
+
+        三个事件
+          - 鼠标按下 - mousedown
+          - 鼠标移动 - mousemove
+          - 鼠标松开 - mouseup
+      鼠标按下
+        告诉登录框，要随着鼠标的移动而移动
+      鼠标移动
+        判断是否按下了，如果按下了，就让登录框跟着鼠标移动
+      鼠标松开
+        告诉登录框，不能随着鼠标移动了
+  */
+  /*
+    bug1：
+      移动鼠标，往右边和下面移动可以有效果，左和上没有效果 - 鼠标移出了title，不触发移动事件了
+    bug2:
+      鼠标的位置应该要定在title的里面的某个位置，而不是title的左上角
+      如果需要让鼠标离div的左上角有距离，只需要让鼠标的坐标减少一点，在设置给div的top和left即可
+      但是现在我们距离div的左上角是需要动态计算的
+        - 当鼠标按下，所有的东西都是固定不动的，只需要使用按下的鼠标坐标 - div的左上角的位置 - 就可以得到鼠标距离div的左上角哟有多远
+  */
+
+  // 获取元素
+  // let login = document.getElementById('login');
+  // let title = document.querySelector('#title');
+  // //写一个变量，标记是否按下了鼠标
+  // let isDrag = false;
+  // // 声明两个变量，记录点下的位置距离lgoin的左上角有多远
+  // let tempX, tempY;
+  // // 给title注册鼠标按下事件
+  // title.onmousedown = function (e) {
+  //   // 标记一下，可以让登录框随着鼠标的移动而移动
+  //   isDrag = true; // 表示鼠标按下了
+  //   // 计算点下的位置距离 div 的左上角有多远
+  //   let mx = e.pageX;
+  //   let my = e.pageY;
+  //   // 得到div距离页面的左上角有多远
+  //   let offsetLeft = login.offsetLeft; // 受到定位和margin的影响
+  //   let offsetTop = login.offsetTop;
+  //   // console.log(offsetTop,offsetLeft);
+  //   // 算出鼠标的位置距离login这个div的左上角有多远
+  //   tempX = mx - offsetLeft;
+  //   tempY = my - offsetTop;
+  // }
+
+  // // 当鼠标松开，表示没有按下
+  // title.onmouseup = function () {
+  //   // 松开了就是没按下
+  //   isDrag = false;
+  // }
+
+  // // 让盒子随着鼠标的移动而移动 - 希望鼠标移动在任何位置都可以触发 - 给document注册才是正确的
+  // document.onmousemove = function (e) {
+  //   // 判断是否按下
+  //   if (isDrag) {
+  //     // 还要消除margin带来的影响
+  //     // offsetLeft = left + maringLeft
+  //     // left = offsetLeft - marginLeft
+  //     login.style.top = e.pageY - tempY - 140 + 'px';
+  //     login.style.left = e.pageX - tempX + 250 + 'px';
+  //   }
+  // }
+
+
+  // 获取元素
+  // let login = document.getElementById('login');
+  // let title = document.querySelector('#title');
+  // // 标记是不是按下了鼠标
+  // let isDrag = false;
+  // // 声明两个变量，记录点下的位置距离login的左上角有多远
+  // let tempX, tempY;
+  // // 给title注册鼠标点击事件
+  // title.onmousedown = function (e) {
+  //   // 表示鼠标按下了
+  //   isDrag = true;
+  //   // 计算点下的位置距离div的左上角有多远
+  //   let mx = e.pageX;
+  //   let my = e.pageY;
+  //   // 得到div距离页面的左上角有多远
+  //   let offsetLeft = login.offsetLeft;
+  //   let offsettop = login.offsetTop;
+  //   // 算出鼠标距离login这个div的左上角有多远
+  //   tempX = mx - offsetLeft;
+  //   tempY = my - offsettop;
+  // }
+  // // 当鼠标松开，表示没有按下
+  // title.onmouseup = function () {
+  //   isDrag = false;
+  // }
+  // // 让盒子随着鼠标的移动而移动，希望鼠标移动到任何位置
+  // document.onmousemove = function (e) {
+  //   // 判断是否按下
+  //   if (isDrag) {
+  //     login.style.top = e.pageY - tempY - 140 + 'px';
+  //     login.style.left = e.pageX - tempX + 250 + 'px';
+  //   }
+  // }
+
+  // 第二遍
+  let login = document.querySelector('#login');
+  let title = document.querySelector('#title');
+  // 声明一个变量。标记是否按下了鼠标
+  let isDrag = false;
+  // 声明两个变量，记录点下鼠标的位置距离login的左上角有多远
+  let tempX, tempY;
+  // 给title注册鼠标点击事件
+  title.onmousedown = function (e) {
+    //  表示鼠标按下了
+    isDrag = true;
+    // 计算点下的距离div的左上角有多远
+    let mx = e.pageX;
+    let my = e.pageY;
+    // 得到div左上角的距离有多远
+    let offsetLeft = login.offsetLeft;
+    let offsetTop = login.offsetTop;
+    // 算出鼠标距离login这个div的左上角距离有多远
+    tempX = mx - offsetLeft;
+    tempY = my - offsetTop;
+  }
+  // 当鼠标松开，表示没有按下
+  title.onmouseup = function () {
+    isDrag = false;
+  }
+  document.onmousemove = function (e) {
+    if (isDrag) {
+      login.style.top = e.pageY - tempY - 140 + 'px';
+      login.style.left = e.pageX - tempX + 250 + 'px';
+    }
+  }
+</script>
+
+</html>

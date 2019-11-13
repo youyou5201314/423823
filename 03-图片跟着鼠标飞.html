@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  /* body,html {
+    height: 100%;
+  } */
+
+  img {
+    position: absolute;
+    /* top: 500px;
+    left: 500px; */
+
+    /* position: fixed; */
+    /* top: 100px;
+    left: 100px; */
+  }
+  .box {
+    width: 300px;
+    height: 3000px;
+    border: 1px solid #000;
+  }
+  </style>
+</head>
+<body>
+  <!-- 一定要记得给图片做定位，否则动不了就打手 -->
+<img src="./images/tianshi.gif" alt="">
+<div class="box"></div>
+</body>
+<script>
+/*
+  效果：
+    鼠标移动，有一张图片跟着鼠标的位置移动
+
+      鼠标移动也是一种交互
+        - 注册事件 - mousemove
+      图片的位置可以随意的移动
+        - 定位
+          - absolute ，fixed
+      得到鼠标的位置，设置给图片的top和left
+
+  如果使用clientX和cleintY
+    如果页面出现滚动条，滚动之后，鼠标会离图片越来越远
+      原因
+        - 图片是随着body移动的 - absolute定位的基准是body的左上角
+        - 鼠标的坐标是可视区域的左上角
+         - 基准不一致，导致位置就不一致
+          - 解决办法
+            - 1. 把定位换成固定定位 ，固定定位的基准也是 可视区域的左上角
+
+            - 2.
+*/
+
+// 获取元素
+let img = document.querySelector('img');
+/* 给document注册鼠标的移动事件 */
+document.onmousemove = function(e){
+  console.log(e);
+  // //得到鼠标的坐标
+  let x = e.pageX,y = e.pageY;
+  // // 设置给图片的top和left
+  img.style.top = y + 'px'; // 注意修改样式属性的时候，如果有单位,一定要注意单位
+  img.style.left = x + 'px';
+}
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        div.main {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="first">
+            <input type="button" value="美女1" id="btn1" />
+            <input type="button" value="美女2" id="btn2" />
+            <input type="button" value="美女3" id="btn3" />
+            <input type="button" value="美女4" id="btn4" />
+            <input type="button" value="美女5" id="btn5" />
+        </div>
+        <div class="second">
+            <img src="images/01.jpg" alt="" id="img" />
+        </div>
+
+    </div>
+</body>
+<script>
+/* 上午所使用的方式，不好的地方在于，图片的名字要有规律
+
+    但是我们正常的图片名字，都是一些没有规律随机命名 —— 不能使用上午的方式处理了
+
+    需要在点击的时候，切换图片的路径
+
+    每个按钮会对应一张图片
+        - 有很多张图片
+        - 大量数据
+        - 可以使用一个数组存储起来
+        - 根据序号获取到对应的路径
+*/
+// 如果图片的名字是没有规律的，我们就把这些图片存储到一个数组里面
+var pathes = ['./images/01.jpg',
+            './images/02.jpg',
+            './images/03.jpg',
+            './images/04.jpg',
+            './images/05.jpg'];
+
+// 获取元素
+var btns = document.getElementsByTagName('input');
+var img = document.getElementById('img');
+// 注册点击事件
+for(var i = 0; i < btns.length; i++){
+    // 给元素对象添加了一个属性，这个属性描述了它所在顺序 - 索引
+    btns[i].index = i;
+    btns[i].onclick = function(){
+        // console.log(this.index);
+        // img.src = 新的路径;
+        // 此时就根据对应的索引，到数组中获取一张图片的路径，设置给图片
+        img.src = pathes[this.index];
+    }
+}
+
+</script>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="button" value="插入" id="btn">
+<ul>
+  <li>我是第1个li</li>
+  <li>我是第2个li</li>
+  <li>我是第3个li</li>
+  <li>我是第4个li</li>
+  <li>我是第5个li</li>
+</ul>
+</body>
+<script>
+/*
+  要把元素放到一个父元素里面，插入元素
+    insertBefore
+      insert - 插入
+      before - 在 .. 之前
+
+      用法
+        父元素.insertBefore(新的元素,旧的元素)
+
+    appendChild
+      父元素.appendChild(子元素)
+      总是把子元素放在父元素的最后面
+*/
+// 点击把一个新的li插入到第三个li之前
+let btn  = document.querySelector('#btn');
+let ul = document.querySelector('ul');
+let li3 = document.querySelector('li:nth-child(3)');
+btn.onclick = function(){
+  // 创建一个新的li
+  let li = document.createElement('li');
+  li.innerHTML = '123';
+  // 插入到第三个li之前
+  // 父元素.insertBefore(新的元素,旧的元素)
+  ul.insertBefore(li,li3);
+}
+</script>
+</html>

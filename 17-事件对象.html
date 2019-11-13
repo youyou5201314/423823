@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: red;
+      height: 100vh;
+    }
+    .box {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <textarea id="txt" cols="30" rows="10"></textarea>
+</div>
+</body>
+<script>
+/*
+  事件也是一个对象，这个对象里面有很多和当前这次事件相关的数据
+
+    注册事件的时候，给事件处理程序写一个形参就可以了
+
+      事件源.on事件类型 = funciont(事件对象参数){
+
+      }
+*/
+// document.body.onclick = function(event){
+//   // console.log('body触发了点击事件');
+//   console.log(event);
+// }
+
+/* 得到按下的按键到底是哪一个
+    只要是当前这个事件相关的数据，就管事件对象要就行了
+ */
+let txt = document.querySelector('#txt');
+txt.onkeydown = function(e){
+  // console.log(e.key);
+  // console.log(e.code);
+  // console.log(e.keyCode);
+  // 以上三个都可以知道按下的是哪一个，但是推荐使用 keyCode 这个数字
+  // 因为我们要判断的时候，是需要比较的，计算机里面比较数字比比较字符串要更快
+  // 回车键 13
+  // ctrl 17
+
+  // 判断同时按下了13和17  --- 错的
+  // if(e.keyCode === 13 && e.keyCode === 17){
+
+  // }
+
+  // 事件对象里面已经帮我们考虑好了，事件对象身上有一个属性，表示你在按下按键的时候是否已经同时按下了 ctrl
+  console.log(e.ctrlKey);
+  // 如果按下了按键的同时，已经按下了ctrl，该属性是true
+
+  // 判断是否同时按下回车和ctrl
+  if(e.keyCode === 13 && e.ctrlKey){
+    console.log('同时按下了ctrl和回车');
+  }
+}
+</script>
+</html>

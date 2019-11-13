@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      border: 1px solid #c0c0c0;
+      width: 500px;
+      margin: 100px auto;
+      text-align: center;
+    }
+
+    th {
+      background-color: #09c;
+      font: bold 16px "微软雅黑";
+      color: #fff;
+      height: 24px;
+    }
+
+    td {
+      border: 1px solid #d0d0d0;
+      color: #404060;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th>
+        <input type="checkbox" id="checkAll" />全选/全不选
+      </th>
+      <th>菜名</th>
+      <th>商家</th>
+      <th>价格</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck" />
+      </td>
+      <td>红烧肉</td>
+      <td>隆江猪脚饭</td>
+      <td>￥200</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck" />
+      </td>
+      <td>香酥排骨</td>
+      <td>隆江猪脚饭</td>
+      <td>￥998</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" name="check" class="ck" />
+      </td>
+      <td>北京烤鸭</td>
+      <td>隆江猪脚饭</td>
+      <td>￥88</td>
+    </tr>
+  </table>
+</body>
+<script>
+  /* 效果
+    1.点击全选，
+      如果全选是勾选的，让每个商品的多选框都是勾选
+      如果全选是不勾选的，让每个商品的多选框都是不勾选
+
+    2.点击每个商品的多选框
+      如果每个商品都勾选，让全选也勾选
+      否则就让全选不勾选
+
+    第一个效果的实现
+      1.获取元素
+      2.注册事件
+      3.判断全选是否勾选，设置每个商品是否勾选
+
+    第二个效果的实现
+      1.获取元素
+      2.注册事件 - 点击
+      3.判断是否所有的单选都勾选
+        设置全选是否勾选
+   */
+
+  // 1 获取全选和单选的元素
+  // let ckAll = document.querySelector('#checkAll');
+  // // let cks = document.getElementsByClassName('ck');
+  // let cks = document.querySelectorAll('.ck');
+
+  // // 2 给全选注册点击事件
+  // ckAll.onclick = function () {
+  //   //3 判断 全选是否是勾选的
+  //   // console.log(ckAll.checked); // 得到的是true或者false
+  //   // if(ckAll.checked){
+  //   //   // 全选了
+  //   //   // 设置所有的单选都是勾线的
+  //   //   // cks[0].checked = true;
+  //   //   for(var i = 0; i < cks.length ; i++){
+  //   //     cks[i].checked = true;
+  //   //   }
+  //   // }else{
+  //   //   // 全不选
+  //   //   for(var i = 0; i < cks.length ; i++){
+  //   //     cks[i].checked = false;
+  //   //   }
+  //   // }
+
+  //   // 简化 - 发现状态都是一样的，没有必要判断了
+  //   for (var i = 0; i < cks.length; i++) {
+  //     // cks[i].checked = ckAll.checked;
+  //     cks[i].checked = this.checked;
+  //   }
+  // }
+
+  // // 实现单选
+  // for(let i = 0; i < cks.length; i++){
+  //   cks[i].onclick = function(){
+  //     // 判断当前是否所有的单选都勾选了
+  //     // 使用反证法实现判断
+  //     // 反证法1 ： 假设 全都勾选了
+  //     let flag = true;
+  //     //  反证法2 : 找反例，找到某一个没有被勾选
+  //     for(let j = 0; j < cks.length; j++){
+  //       // 尝试找没有勾选
+  //       // if(cks[j].checked === false){
+  //       if(!cks[j].checked){
+  //         // 把假设改为false
+  //         flag = false;
+  //         break;
+  //       }
+  //     }
+  //     // 反证法的3：判断假设是否仍然成立
+  //     // if(flag){
+  //     //   // 全选了 - 设置全选的多选框也勾选
+  //     //   ckAll.checked = true;
+  //     // }else {
+  //     //   // 没有全选 - 设置全选的多选框不勾选
+  //     //   ckAll.checked = false;
+  //     // }
+
+  //     // 三元表达式简化
+  //     // flag ? ckAll.checked = true : ckAll.checked = false;
+
+  //     // 逻辑可以优化为
+  //     ckAll.checked = flag;
+  //   }
+  // }
+
+
+  // 我的
+  let ckAll = document.querySelector('#checkAll');
+  let cks = document.querySelectorAll('.ck');
+  ckAll.onclick = function () {
+    for (var i = 0; i < cks.length; i++) {
+      cks[i].checked = this.checked;
+    }
+  }
+  // 实现
+  for (let i = 0; i < cks.length; i++) {
+    cks[i].onclick = function () {
+      let flag = true;
+      for (let j = 0; j < cks.length; j++) {
+        if (!cks[j].checked) {
+          flag = false;
+          break;
+        }
+      }
+      ckAll.checked = flag;
+    }
+  }
+
+
+
+
+
+  // let ckAll = document.querySelector('#checkAll');
+  // let cks = document.querySelectorAll('.ck');
+  // ckAll.onclick = function () {
+  //   for (var i = 0; i < cks.length; i++) {
+  //     cks[i].checked = this.checked;
+  //   }
+  // }
+  // // 实现
+  // for (let i = 0; i < cks.length; i++) {
+  //   cks[i].onclick = function () {
+  //     let flag = true;
+  //     for (let j = 0; j < cks.length; j++) {
+  //       if (!cks[j].checked) {
+  //         flag = false;
+  //         break;
+  //       }
+  //     }
+  //     ckAll.checked = flag;
+  //   }
+  // }
+</script>
+
+</html>

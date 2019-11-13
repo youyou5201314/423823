@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* div.aa
+         {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+        } */
+        div.main {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+            <div class="first">
+                <input type="button" value="美女1" id="btn1" />
+                <input type="button" value="美女2" id="btn2" />
+                <input type="button" value="美女3" id="btn3" />
+                <input type="button" value="美女4" id="btn4" />
+                <input type="button" value="美女5" id="btn5" />
+            </div>
+            <div class="second">
+                <img src="images/01.jpg" alt="" id="img" />
+            </div>
+    
+        </div>
+
+    <!-- <div class="aa">
+        <div class="bb">
+            <input type="button" value="按钮1" data-abc="./images/01.jpg">
+            <input type="button" value="按钮2" data-abc="./images/02.jpg">
+            <input type="button" value="按钮3" data-abc="./images/03.jpg">
+            <input type="button" value="按钮4" data-abc="./images/04.jpg">
+            <input type="button" value="按钮5" data-abc="./images/05.jpg">
+        </div>
+        <div class="cc">
+            <img src="./images/01.jpg" id="img">
+        </div>
+    </div> -->
+</body>
+<script>
+    // 简便的方法
+    //  var btns=document.getElementsByTagName('input');
+    //  var img=document.getElementById('img');
+    //  for(var i=0;i<btns.length;i++){
+    //      btns[i].onclick=function(){
+    //          img.src=this.dataset.abc;
+    //      }
+    //  }
+    //  第一种
+    var btns = document.getElementsByTagName('input');
+    var img = document.getElementById('img');
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].index = i;
+        btns.onclick = function () {
+            img.src = './images/0' + (this.index + 1) + 'jpg';
+        }
+    }
+</script>
+
+</html>

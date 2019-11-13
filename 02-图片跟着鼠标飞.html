@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* body,html {
+    height: 100%;
+  } */
+
+    img {
+      position: absolute;
+      /* top: 20px; */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 一定要记得给图片做定位，否则动不了就打手 -->
+  <img src="./images/tianshi.gif" alt="">
+</body>
+<script>
+  /*
+    效果：
+      鼠标移动，有一张图片跟着鼠标的位置移动
+
+        鼠标移动也是一种交互
+          - 注册事件 - mousemove
+        图片的位置可以随意的移动
+          - 定位
+            - absolute ，fixed
+        得到鼠标的位置，设置给图片的top和left
+  */
+  /* 鼠标在页面的任何一个位置移动都有触发 */
+  // document.body.onmousemove = function(){
+  //   console.log(123);
+  // }
+  // document.body.parentNode.onmousemove = function(){
+  //   console.log(456);
+  // }
+
+  // console.log(document.body.parentNode.parentNode);
+  // console.log(document);
+  // console.log(document === document.body.parentNode.parentNode);
+
+
+  /* 如果有一个事件，希望在页面的任何位置都可以触发，就给document这个对象注册 */
+  // document.onmousemove = function(){
+  //   console.log(789)
+  // }
+
+  // 获取元素
+  // let img = document.querySelector('img');
+  // /* 给document注册鼠标的移动事件 */
+  // document.onmousemove = function (e) {
+  //   //得到鼠标的坐标
+  //   let x = e.clientX, y = e.clientY;
+  //   // 设置给图片的top和left
+  //   img.style.top = y + 'px'; // 注意修改样式属性的时候，如果有单位,一定要注意单位
+  //   img.style.left = x + 'px';
+  // }
+
+  // 获取元素
+  let img = document.querySelector('img');
+  // 给document注册鼠标移动事件
+  document.onmousemove = function (e) {
+    // 获取鼠标的坐标
+    let x = e.clientX, y = e.clientY;
+    // 设置图片的top和left
+    img.style.top = y + 'px';
+    img.style.left = x + 'px';
+  }
+</script>
+
+</html>

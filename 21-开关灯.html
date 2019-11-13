@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body id='body'>
+    <input type="button" value="开灯" id='kaideng'>
+    <input type="button" value="开灯" id='guandeng'>
+</body>
+<script>
+    (function () {
+        var kaideng = document.getElementById('kaideng');
+        var guandeng = document.getElementById('guandeng')
+        var body = document.body;
+        kaideng.onclick = function () {
+            body.style.backgroundColor = '';
+        }
+        guandeng.onclick = function () {
+            body.style.backgroundColor = '#000'
+        }
+    })()
+
+
+    
+
+</script>
+
+</script>
+
+</html>

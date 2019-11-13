@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      position: absolute;
+      top: 100px;
+      left: 300px;
+    }
+    input {
+      box-sizing: border-box;
+      width: 300px;
+      height: 56px;
+      background-image: url('./images/search.png');
+      padding: 4px 6px;
+      border: 0 none;
+      outline: 0 none;
+      font-size: 24px;
+    }
+    .list {
+      border: 1px solid #ccc;
+      position: absolute;
+      top: 54px;
+      left: 2px;
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <input type="text" id="search">
+    <div class="list" id="list">
+      <img src="./images/mi.png" alt="">
+    </div>
+  </div>
+</body>
+<script>
+/*
+  当输入框能够输入的时候，列表显示
+  输入框不能够输入的时候，列表隐藏
+    昨天使用style的方式实现的
+      操作 style.display - 行内样式  —— 可以行的
+
+  另一个思路：
+    当我鼠标移入，给列表添加一个新的类名，让类名来控制列表显示
+    当鼠标离开输入框，把之前添加的类名移除，移除了可以显示的类名，就回复默认不显示了
+*/
+// 获取元素
+let search = document.querySelector('#search');
+let list = document.querySelector('#list');
+// 注册获得焦点事件
+search.onfocus = function(){
+  // 给列表添加一个新的类名，用于显示
+  list.classList.add('show');
+}
+// 注册失去焦点事件
+search.onblur = function(){
+  // 把用于显示的类名移除
+  list.classList.remove('show');
+}
+</script>
+</html>

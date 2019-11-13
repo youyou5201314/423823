@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+            height: 24px;
+        }
+
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>
+                <input type="checkbox" name="" id="checkAll" />全选/全不选
+            </th>
+            <th>菜名</th>
+            <th>商家</th>
+            <th>价格</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="check" class="ck" />
+            </td>
+            <td>红烧肉</td>
+            <td>隆江猪脚饭</td>
+            <td>￥200</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="check" class="ck" />
+            </td>
+            <td>香酥排骨</td>
+            <td>隆江猪脚饭</td>
+            <td>￥998</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" name="check" class="ck" />
+            </td>
+            <td>北京烤鸭</td>
+            <td>隆江猪脚饭</td>
+            <td>￥88</td>
+        </tr>
+    </table>
+    <!-- <table>
+        <tr>
+            <th>
+                <input type="aa" name="" id="dd" />全选/全不选
+            </th>
+            <th>菜名</th>
+            <th>商家</th>
+            <th>价格</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="aa" name="bb" class="cc" />
+            </td>
+            <td>红烧猪肉</td>
+            <td>隆江猪脚饭</td>
+            <td>￥200</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="aa" name="bb" class="cc" />
+            </td>
+            <td>香酥排骨</td>
+            <td>隆江猪脚饭</td>
+            <td>￥998</td>
+        </tr>
+        <tr>
+            <td>
+                <input type="aa" name="bb" class="cc" />
+            </td>
+            <td>红烧猪大腿</td>
+            <td>隆江猪脚饭</td>
+            <td>￥88</td>
+        </tr>
+    </table> -->
+
+</body>
+<script>
+
+    /*
+    *   需求分析：
+    *      1 点击全选的时候，如果是勾选，底下的每道菜的多选框也勾选，否则不勾选
+    *           全选的多选框是勾选的，其余也勾选，否则其余的不勾选
+    *               全选的控制剩下的跟我一样
+    *
+    *      2 点每道菜前面的多选框
+    *           如果每道菜都勾选了，全选就勾选
+    *           如果有任意一道菜没有勾选，全选就不勾选
+    * */
+
+    // 获取全选多选框
+    // var checkAll = document.getElementById("checkAll");
+    // // 获取其余的每道菜的多选框
+    // var cks = document.getElementsByClassName("ck");
+    // // 注册点击事件
+    // checkAll.onclick = function () {
+    //     // 控制其他的多选框跟我的状态一样
+    //     // 先得到自己的状态
+    //     var status = this.checked;
+    //     // 把其他的多选框都设置为我的状态即可
+    //     // 因为cks是伪数组，需要遍历出里面的每一个DOM对象，再来设置其属性
+    //     for (var i = 0; i < cks.length; i++) {
+    //         cks[i].checked = status;
+    //     }
+    // }
+
+    // // 需要循环的给每道菜前面的多选框注册事件
+    // for (var i = 0; i < cks.length; i++) {
+    //     cks[i].onclick = function () {
+    //         // 判断每道菜前面的多选框是不是都选上了
+
+    //         // 如果都选上了，全选也选上，如果有任意一个没有选上，全选就不选上
+    //         // 因为选中3个是多个条件同时成立，就可以使用反证法
+    //         // 反证法的步骤：
+    //         // 1 先假设 三个都选上了
+    //         var flag = true;
+    //         // 2 找出一个反例，只要有一个反例，假设即为不成立
+    //         for (var j = 0; j < cks.length; j++) {
+    //             //只要其中一个没有选中，就可以推翻了
+    //             if (cks[j].checked == false) {
+    //                 // 没选中，假设推翻
+    //                 flag = false;
+    //                 break;
+    //             }
+    //         }
+    //         // 3 循环执行完毕之后，还要判断一下假设是否仍然成立
+    //         //            if(flag){
+    //         //                // 如果成立，让全选勾选
+    //         //                checkAll.checked = true;
+    //         //            }else{
+    //         //                // 否则全选不勾选
+    //         //                checkAll.checked = false;
+    //         //            }
+
+    //         // 以上的ifelse可以优化成三元表达式
+    //         //            flag ? checkAll.checked = true : checkAll.checked = false;
+    //         //            checkAll.checked = flag ?  true :  false;
+    //         checkAll.checked = flag;
+    //     }
+    // }
+
+    // var checkAll = document.getElementById("checkAll");
+    // var cks = document.getElementsByClassName("ck");
+    // checkAll.onclick = function () {
+    //     var status = this.checked;
+    //     for (var i = 0; i < cks.length; i++) {
+    //         cks[i].checked = status;
+    //     }
+    // }
+    // for (var i = 0; i < cks.length; i++) {
+    //     cks[i].onclick = function () {
+    //         var flag = true;
+    //         for (var j = 0; j < cks.length; j++) {
+    //             if (cks[j].checked == false) {
+    //                 flag = false;
+    //                 break;
+    //             }
+    //         }
+    //         checkAll.checked = flag;
+    //     }
+    // }
+        // 我的做法
+
+        var checkAll = document.getElementById("checkAll");
+        var cks = document.getElementsByClassName("ck");
+        checkAll.onclick = function () {
+            var status = this.checked;
+            for (var i = 0; i < cks.length; i++) {
+                cks[i].checked = status;
+            }
+        }
+        for (var i = 0; i < cks.length; i++) {
+            cks[i].onclick = function () {
+                var flag = true;
+                for (var j = 0; j < cks.length; j++) {
+                    if (!cks[j].checked) {
+                        flag = false;
+                        break;
+                    }
+                }
+                checkAll.checked = flag;
+            }
+        }
+        // 我的
+        // var dd=document.getElementById("dd");
+        // var ccc=document.getElementsByClassName("cc");
+        // dd.onclick=function(){
+        //     var status=this.bb;
+        //     for (var i=0; i<ccc.length;i++){
+        //         ccc[i].chenked=status;
+        //     }
+        // }
+        // // 注册事件
+        // for (var i=0;i<ccc.length;i++){
+        //     ccc[i].onclick=function(){
+        //         var flag=true;
+        //         for(var d=0;d<ccc.length;d++){
+        //             if(ccc[d].chenked===false){
+        //                 flag=false;
+        //                 break;
+        //             }
+        //         }
+        //         dd.chenked=flag;
+        //     }
+        // }
+
+
+</script>
+
+</html>

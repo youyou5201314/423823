@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: absolute;
+            top: 100px;
+            left: 300px;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 300px;
+            height: 56px;
+            background-image: url('./images/search.png');
+            padding: 4px 6px;
+            border: 0 none;
+            outline: 0 none;
+            font-size: 24px;
+        }
+
+        .list {
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 54px;
+            left: 2px;
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input type="text" id="search">
+        <div class="list" id="list">
+            <img src="./images/mi.png" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    /* 效果：
+        1. 光标进入输入框，让列表显示
+        2. 光标离开输入框，让列表隐藏
+    
+    
+        光标可以使用  focus 和 blur 处理
+        显示和隐藏可以
+          操作 display属性
+            block - 显示
+            none - 隐藏
+     */
+    // 获取元素
+    // let search = document.getElementById('search');
+    // let list = document.getElementById('list');
+    // // 使用focus和 blur事件处理 - 注册事件
+    // // 获的焦点的时候，控制列表显示
+    // search.onfocus = function () {
+    //     list.style.display = 'block';
+    // }
+    // // 控制列表的显示和隐藏\
+    // search.onblur = function () {
+    //     list.style.display = 'none';
+    // }
+    
+    let search= document.getElementById('search');
+    let list = document.getElementById('list');
+    search.onfocus=function(){
+        list.style.display='block';
+    }
+    search.onblur=function(){
+        list.style.display='none';
+
+    }
+    </script>
+
+</html>

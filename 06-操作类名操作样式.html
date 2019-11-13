@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #000;
+    }
+    .bg-red {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <input type="button" value="切换" id="btn">
+<div class="box abc def"></div>
+</body>
+<script>
+/*
+  操作元素的样式
+    style - 这个控制的行内样式
+
+    类名
+
+      className
+        可以直接获取和覆盖类名，不好操作
+      classList
+*/
+
+// 昨天讲了，我们类名这个属性，使用的是className这个属性来表示对额
+var box = document.querySelector('.box');
+// console.log(box.className);
+// 修改类名
+// box.className = 新的;
+// box.className = 'bg-red'
+// className的方式能够改，但是是覆盖进去的，此时不好操作
+// box.onclick = function(){
+//   box.className += ' bg-red'
+// }
+
+/* classList的使用 */
+// 输出看看
+// console.log(box.classList);
+
+/* 添加类名 */
+// // 元素.classList.add(类名)
+// box.onclick = function(){
+//   box.classList.add('bg-red');
+// }
+// /* 删除类名 */
+// // 元素.classList.remove(类名)
+// box.ondblclick = function(){
+//   // console.log(1);
+//   box.classList.remove('bg-red');
+// }
+
+/* 可以切换类名 */
+// 元素.classList.toggle(类名)
+/* 切换的意思： 如果里面存在这个类名，就移除，如果不存在这个类名，就添加 */
+let btn =  document.querySelector('#btn');
+btn.onclick = function(){
+  box.classList.toggle('bg-red');
+}
+</script>
+</html>

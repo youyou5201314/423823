@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            padding: 0;
+            width: 600px;
+            margin: 100px auto;
+            list-style: none;
+        }
+
+        li {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="father">
+        <li>我是第1个li</li>
+        <li>我是第2个li</li>
+        <li>我是第3个li</li>
+        <li>我是第4个li</li>
+        <li>我是第5个li</li>
+        <li>我是第6个li</li>
+    </ul>
+    <ul id="aa">
+        <li>1111111111111111</li>
+        <li>2222222222222222</li>
+        <li>3333333333333333</li>
+        <li>4444444444444444</li>
+        <li>5555555555555555</li>
+        <li>6666666666666666</li>
+    </ul>
+    <script>
+
+        // var father = document.getElementById("father");
+        // var lis = father.getElementsByTagName('li');
+
+        // for (var i = 0; i < lis.length; i++) {
+        //     //判断索引的奇偶性
+        //     if (i % 2 != 0) {
+        //         // 索引是从0开始的，如果是第一行，索引为0，第二行索引为1
+        //         lis[i].style.backgroundColor = 'green';
+        //         // 2.3 先把原来的颜色先保存起来
+        //         //            lis[i].oldColor = 'green';
+        //     } else {
+        //         lis[i].style.backgroundColor = 'red';
+        //         // 2.3 先把原来的颜色先保存起来
+        //         //            lis[i].oldColor = 'red';
+        //     }
+        //     lis[i].oldColor = lis[i].style.backgroundColor;
+        // }
+
+        // /*
+        // *   鼠标移入哪一行就让哪一行的颜色跟其他的不一样
+        // *
+        // *   当鼠标离开的时候，就让所有的li恢复原来的状态
+        // * */
+        // // 1 注册鼠标的移入事件
+        // for (var j = 0; j < lis.length; j++) {
+        //     lis[j].onmouseover = function () {
+        //         // 把当前的li的背景颜色变成黄色
+        //         this.style.backgroundColor = 'yellow';
+        //     }
+        //     // 2 注册鼠标的移出事件
+        //     lis[j].onmouseout = function () {
+        //         // 2.1 只要把移出的li，变回原来的颜色即可
+        //         // 2.2 只要在改变颜色之前，先把原来的颜色存起来
+
+        //         // 2.4 鼠标移出的时候，取出存起来的旧的颜色，重新设置回原来的颜色
+        //         var old = this.oldColor;
+        //         this.style.backgroundColor = old;
+        //     }
+        // }
+
+        var aa =document.getElementById('aa');
+        var bb =document.getElementsByTagName('li')
+        for(var i=0;i<bb.length;i++){
+           if(i%2 !=0){
+               bb[i].style.backgroundColor='red';
+           }else{
+               bb[i].style.backgroundColor='yellow';
+           }
+           bb[i].oldColor=bb[i].style.backgroundColor;
+        }
+        // 鼠标点击事件
+        for(var c=0;c<bb.length;c++){
+            bb[c].onmouseover=function(){
+                this.style.backgroundColor='blue';
+            }
+            bb[c].onmouseout= function(){
+                var old=this.oldColor;
+               this.style.backgroundColor=old; 
+            }
+        }
+    </script>
+</body>
+
+</html>

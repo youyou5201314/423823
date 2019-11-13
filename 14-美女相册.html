@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        div.main {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="first">
+            <input type="button" value="美女1" id="btn1" />
+            <input type="button" value="美女2" id="btn2" />
+            <input type="button" value="美女3" id="btn3" />
+            <input type="button" value="美女4" id="btn4" />
+            <input type="button" value="美女5" id="btn5" />
+        </div>
+        <div class="second">
+            <img src="images/01.jpg" alt="" id="img" />
+        </div>
+
+    </div>
+</body>
+<script>
+    /* 麻烦的地方在于：
+        一个一个元素的获取和注册事件 - 麻烦
+        想法是： 一次把5个按钮全都获取
+    */
+
+    // 一次性把5个按钮都获取
+    var btns = document.getElementsByTagName('input');
+    var img = document.getElementById('img');
+
+
+    // 发现注册的过程，就是循环的过程
+    for (var i = 0; i < btns.length; i++) {
+        // 循环执行的时候，此时i就一定是一个从0~4的数字
+        // console.log(i);
+        // 在btns[i]也就是每个按钮身上，添加一个属性，这个属性用于存储它自己的索引
+        btns[i].index = i;
+        btns.onclick = function () {
+            // 在事件处理程序里面，可以通过this得到当前触发事件的元素
+            // console.log(this);
+            // console.log(this.index);
+            // 我们想要获取一个和当前被点击的元素索引一致的数字，用于拼接出图片的路径
+            img.src = './images/0' + (this.index + 1) + '.jpg';
+        }
+    }
+
+    /*
+        使用for循环注册的事件，事件处理程序里面的i是不好用的，因为
+        循环执行完毕，而函数还没有执行，此时i已经是最大值了
+        如果触发事件的时候，再去获取i此时肯定是最大值
+            解决方法1：
+                1.在循环里面，把索引i存储到对象身上
+                2.在事件处理程序里面，通过this得到之前用于存储数据的对象 - 也就是触发事件的元素
+                3.从它的身上获取之前存储在它身上的索引
+    */
+</script>
+
+</html>

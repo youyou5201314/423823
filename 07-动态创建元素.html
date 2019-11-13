@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<input type="button" value="使用innerHTML创建li" id="btn1">
+<input type="button" value="使用document.createElement创建li" id="btn2">
+<ul>
+  <li>旧的内容</li>
+</ul>
+</body>
+<script>
+/* DOM里面动态创建元素的方式
+      两个
+        元素.innerHTML
+          元素.innerHTML = '满足html格式的字符串'
+
+        document.createElement('标签名');
+          需要手动添加
+            父元素.appendChild(子元素)
+
+  innerHTML
+    - 这是元素的一个属性，这个属性管理着某个元素的html内容
+ */
+
+ /* 点击按钮，生成一个新的li */
+ /* 使用innerHTML的方式 */
+ // 获取元素
+ let btn1 = document.querySelector('#btn1');
+ let ul = document.querySelector('ul');
+
+ let count = 0;
+ // 点击
+ btn1.onclick = function(){
+   // 使用innerHTML的方式创建一个li
+  ul.innerHTML = '<li>第'+count+'个li</li>';
+  count++;
+ }
+
+ // 什么是innerHTML
+ console.log(ul.innerHTML);
+
+ /* 演示使用document.createElement创建 */
+//  document.createElement('标签名')
+let btn2 = document.getElementById('btn2');
+btn2.onclick = function(){
+  // 调用 document.createElement创建元素
+  let li = document.createElement('li');
+  console.log(li);
+  // 创建之后，是不会自动进入页面结构里面的，需要手动添加
+  ul.appendChild(li);
+  li.innerHTML = '我是新来的li'
+}
+</script>
+</html>

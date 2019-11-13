@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="开关" id='kaiguan'>
+</body>
+<script>
+    (function () {
+        var kaideng = document.getElementById('kaiguan');
+        var body = document.body;
+        statuss=true;
+        kaiguan.onclick = function () {
+            if (statuss) {
+                body.style.backgroundColor = '#000';
+                statuss=false;
+            } else {
+                body.style.backgroundColor = '';
+                statuss = true;
+            }
+        }
+    })();
+
+    // 按钮点击事件
+</script>
+
+</html>
