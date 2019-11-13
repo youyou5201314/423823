@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+* {
+      margin: 0;
+      padding: 0;
+    }
+    .yeye {
+      width: 400px;
+      height: 400px;
+      background-color: green;
+    }
+    .baba {
+      width: 300px;
+      height: 300px;
+      background-color: yellow;
+      position: relative;
+    }
+    .erzi {
+      position: absolute;
+      left: 400px;
+      width: 200px;
+      height: 200px;
+      background-color: #0094ff; /* 这个颜色记住，以后你们会懂的 */
+    }
+  </style>
+</head>
+<body>
+<input type="button" value="按钮" id="btn">
+
+<div class="yeye">
+  <div class="baba">
+    <div class="erzi"></div>
+  </div>
+</div>
+
+</body>
+<script>
+  /* addEventListener的第三个参数，其实true和false都是可以行的 */
+// let btn = document.querySelector('#btn');
+// btn.addEventListener('click',function(){
+//   console.log(123);
+// },true);
+
+/*
+  addEventListener的第三个参数
+    意思是： 事件处理程序是否在捕获阶段执行
+*/
+
+// 给三个元素注册事件
+let yeye = document.querySelector('.yeye');
+let baba = document.querySelector('.baba');
+let erzi = document.querySelector('.erzi');
+
+// 先使用false - 指定传播过程中，在冒泡阶段执行处理程序
+yeye.addEventListener('click',function(){
+  console.log('我是你爷爷');
+},false);
+baba.addEventListener('click',function(){
+  console.log('我是你爸爸');
+},false);
+erzi.addEventListener('click',function(){
+  console.log('我是你儿子');
+},false);
+
+// 使用true - 指定传播过程中，在捕获阶段执行
+// yeye.addEventListener('click',function(){
+//   console.log('我是你爷爷');
+// },true);
+// baba.addEventListener('click',function(){
+//   console.log('我是你爸爸');
+// },true);
+// erzi.addEventListener('click',function(){
+//   console.log('我是你儿子');
+// },true);
+
+/*
+  我们发现，给是三个父子关系的元素注册了同一个类型的事件
+  如果后代触发了该事件，前代元素也会跟着执行对应的处理程序
+  原因：
+    事件发生之后，会有一个事件传播的过程
+      默认会从根元素 - document - 开始传播 - 直到传播到触发事件的事件源身上 - 称为事件捕获的过程
+      事件传播到了触发事件的事件源 - 事件目标阶段
+      事件又会从事件源开始向根源再次传播，直到传播到根元素为止 - 事件冒泡
+
+    事件会传播
+      - 事件捕获
+      - 事件目标
+      - 事件冒泡
+*/
+</script>
+</html>

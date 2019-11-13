@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<input type="button" value="按钮" id="btn">
+</body>
+<script>
+/* 事件解绑
+  注册了事件之后，如果希望事件在默写特定的时机无法触发，就可以把事件解绑掉
+
+    注册了事件事实上就是让 元素 和 函数 发生一定的关联
+    解绑，只需要把关联去除就行
+
+  注册事件
+    on
+      解绑
+        事件源.on事件类型 = null; 把函数从on这个属性里面移除
+    addEventListener
+      解绑
+        这个方式有一个专门的函数用于解绑
+        事件源.removeEventListener(事件类型,函数名);
+*/
+
+// 原本元素如果没有注册事件，它的onclick等属性，是null
+let btn = document.querySelector('#btn');
+// console.log(btn.onclick);
+// console.log(btn.onmousemove);
+// console.log(btn.onmouseout);
+// console.log(btn.onmousedown);
+// console.log(btn.onmouseup);
+
+
+// 使用on的方式解绑
+// btn.onclick = function(){
+//   // 点击了之后，立刻解绑，就可以了
+//   btn.onclick = null;
+//   console.log(123);
+// }
+
+/* 使用remove的方式解绑事件 */
+btn.addEventListener('click',fn);
+function fn(){
+  // 解绑
+  btn.removeEventListener('click',fn);
+  console.log(123);
+}
+</script>
+</html>

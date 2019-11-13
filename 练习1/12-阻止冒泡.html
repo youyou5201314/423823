@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 100px;
+      background-color: green;
+      position: relative;
+    }
+    input{
+      position: absolute;
+      top: 60px;
+      left: 40px;
+    }
+    input:nth-child(2){
+      left: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <input type="button" value="确定" id="btn">
+  <input type="button" value="取消" id="btn2">
+</div>
+</body>
+<script>
+/* 需求
+      点击确定
+        弹出一个新的提示框，提示消息
+      点击取消或者是绿色盒子
+        都可以把绿色盒子隐藏
+ */
+let btn = document.querySelector('#btn');
+btn.onclick = function(e){
+  alert('你好');
+  //希望不让按钮的点击事件，冒泡了
+  // dom里面提供了一个阻止事件冒泡的方法
+  // 事件对象.stopPropagation();
+  e.stopPropagation();
+}
+
+// 点击绿色的盒子
+let box = document.querySelector('.box');
+box.onclick = function(){
+  box.style.display = 'none';
+}
+</script>
+</html>

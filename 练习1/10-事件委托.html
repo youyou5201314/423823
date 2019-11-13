@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul {
+      width: 0;
+      height: 0;
+    }
+    li {
+      width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <input type="button" value="按钮" id="btn">
+<ul>
+  <li>我是第1个li</li>
+  <li>我是第2个li</li>
+  <li>我是第3个li</li>
+  <li>我是第4个li</li>
+  <li>
+    <p>这是一个与众不同的孩子</p>
+  </li>
+</ul>
+</body>
+<script>
+// /* 采用正常的方式注册事件 */
+// // 得到这5个li，注册
+// let lis = document.querySelectorAll('li'); // 这种伪数组也能用
+// lis.forEach(function(e){
+//   e.onclick = function(){
+//     console.log(this);
+//   }
+// })
+
+// // 新建元素
+let ul = document.querySelector('ul');
+let btn = document.getElementById('btn');
+btn.onclick = function(){
+  let li = document.createElement('li');
+  li.innerHTML = '是一个你死后的孤儿';
+  ul.appendChild(li);
+}
+
+/* 采用委托的方式来实现
+  委托：
+    委托ul，当他的子元素li被点击的时候，让它帮我们执行一段代码
+
+    1.给ul注册点击事件
+    2.当子元素li被点击，事件会冒泡到ul身上
+    3.当ul的事件处理程序被执行，要求它，判断一下，点击的是否是li
+    4.如果是，就让它帮我们执行一段代码
+*/
+// let ul = document.querySelector('ul');
+// ul.onclick = function(e){ // 使用这个方式不够安全
+ul.addEventListener('click',function(e){
+  // 判断点击的元素是否是li
+  // 可以通过事件对象得到点击的真正的元素
+  // console.log(e.target);
+  // 元素如果使用console.log()输出默认会输出它的标签格式，让你看清他是哪个元素
+  // 如果想要输出原始对象，使用一个  console.dir();
+  // console.dir(e.target);
+  // 判断 e.target 这个对象的 nodeName 属性就可以了
+  if(e.target.nodeName === 'LI'){
+    console.log('li被点击了');
+  }
+});
+
+/* 以上就是我们实现  事件委托 的原理
+  给页面上一个已经存在的前代元素注册事件，在该元素的事件处理程序里面，判断触发事件的事件源，是否是指定的元素，如果是，就执行代码
+  为什么可以这么干 ？ 因为事件会冒泡，只要后代元素触发了同类型的事件，事件会冒泡到之前注册了事件的前代元素身上，并且触发了事件处理程序的执行
+
+  事件委托的作用 - 一种在注册事件的时候的技巧
+    1.可以让动态生成的元素，模拟注册事件的效果
+    2.可以让注册事件的次数减少
+*/
+</script>
+</html>

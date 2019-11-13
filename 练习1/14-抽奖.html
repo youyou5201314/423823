@@ -1,0 +1,72 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .main {
+      width: 660px;
+      height: 660px;
+      background-image: url('./images/panze.png');
+      margin: 100px auto;
+      position: relative;
+    }
+    .zhizhen {
+      width: 338px;
+      height: 338px;
+      background-image: url('./images/zhizhen.png');
+      background-repeat: no-repeat;
+      background-position: center top;
+      position: absolute;
+      top: 129px;
+      left: 152px;
+      transition: transform 500ms linear;
+    }
+    .begin {
+      width: 138px;
+      height: 138px;
+      position: absolute;
+      top: 227px;
+      left: 252px;
+      border-radius: 50%;
+      /* background-color: rgba(255,0,0,.5); */
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="zhizhen"></div>
+    <div class="begin"></div>
+  </div>
+</body>
+<script>
+/*
+  点击可以随机的让指针旋转一定的角度
+
+  给按钮注册点击事件，随机一个角度，设置给指针的旋转
+*/
+// 获取元素
+let zhizhen = document.querySelector('.zhizhen');
+let begin = document.querySelector('.begin');
+
+// 注册点击事件
+begin.onclick = function(){
+  // 只能点一次，就点了之后，就把事件解绑
+  begin.onclick = null;
+  //随机角度
+  let angle = Math.random() * 360;
+  // 设置给指针
+  zhizhen.style.transform = 'rotate('+ angle +'deg)';
+}
+
+
+</script>
+</html>

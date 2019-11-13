@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<a href="http://www.baidu.com">百度</a>
+<br>
+<div>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vel incidunt earum, asperiores quaerat voluptatem hic consequatur reiciendis voluptas quos neque veniam quidem eligendi officia! Molestias voluptatem hic harum reiciendis!
+</div>
+</body>
+<script>
+/* 阻止a标签的跳转 */
+let a = document.querySelector('a');
+a.onclick = function(e){
+  // 调用阻止默认行为的方法进行阻止
+  e.preventDefault();
+}
+
+/* 阻止复制 */
+document.addEventListener('keydown',function(e){
+  // console.log(e.keyCode);
+  // 判断是否ctrl + c
+  if(e.keyCode === 67 && e.ctrlKey){
+    alert('请付费，在复制');
+    e.preventDefault();
+  }
+
+})
+
+/* 阻止右键 */
+document.addEventListener('contextmenu',function(e){
+  e.preventDefault();
+  console.log('右键了');
+})
+</script>
+</html>
