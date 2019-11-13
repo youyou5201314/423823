@@ -33,3 +33,5 @@ function randomInt(n, m) {
   console.log(randomColor1());
   document.body.style.backgroundColor=randomColor1();
   }
+
+// ** //
